@@ -8,10 +8,12 @@ import {
   Settings, 
   PlusCircle, 
   ShieldCheck,
-  Search
+  Search,
+  Package,
+  Wallet
 } from 'lucide-react';
 
-export type NavTab = 'dashboard' | 'vehicles' | 'customers' | 'services' | 'reminders' | 'settings';
+export type NavTab = 'dashboard' | 'vehicles' | 'customers' | 'services' | 'inventory' | 'cashflow' | 'reminders' | 'settings';
 
 interface SidebarProps {
   currentTab: NavTab;
@@ -22,6 +24,7 @@ interface SidebarProps {
   onQuickSearch: () => void;
   reminderCount: number;
   activeServiceCount: number;
+  lowStockCount: number;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -33,6 +36,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onQuickSearch,
   reminderCount,
   activeServiceCount,
+  lowStockCount,
 }) => {
   const menuItems = [
     { id: 'dashboard', label: 'Genel Bakış', icon: LayoutDashboard },
@@ -45,6 +49,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
       badge: activeServiceCount > 0 ? activeServiceCount : undefined,
       badgeColor: 'bg-amber-500'
     },
+    { 
+      id: 'inventory', 
+      label: 'Yedek Parça & Stok', 
+      icon: Package,
+      badge: lowStockCount > 0 ? `${lowStockCount} Kritik` : undefined,
+      badgeColor: 'bg-rose-500'
+    },
+    { id: 'cashflow', label: 'Kasa & Gelir-Gider', icon: Wallet },
     { 
       id: 'reminders', 
       label: 'Bakım Hatırlatma', 
@@ -130,7 +142,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <span>{item.label}</span>
               </div>
               {item.badge !== undefined && (
-                <span className={`text-[11px] font-bold text-white px-2 py-0.5 rounded-full ${item.badgeColor}`}>
+                <span className={`text-[10px] font-bold text-white px-2 py-0.5 rounded-full ${item.badgeColor}`}>
                   {item.badge}
                 </span>
               )}
@@ -152,4 +164,3 @@ export const Sidebar: React.FC<SidebarProps> = ({
     </aside>
   );
 };
-

@@ -4,6 +4,8 @@ import { DashboardView } from './components/DashboardView';
 import { VehiclesView } from './components/VehiclesView';
 import { CustomersView } from './components/CustomersView';
 import { ServiceRecordsView } from './components/ServiceRecordsView';
+import { InventoryView } from './components/InventoryView';
+import { CashFlowView } from './components/CashFlowView';
 import { RemindersView } from './components/RemindersView';
 import { SettingsView } from './components/SettingsView';
 import { NewServiceModal } from './components/NewServiceModal';
@@ -23,6 +25,7 @@ export const App: React.FC = () => {
   const activeServices = storage.getServiceRecords().filter(
     r => r.status === 'ISLEMDE' || r.status === 'PARCA_BEKLENIYOR'
   );
+  const lowStock = storage.getLowStockItems();
 
   const handleQuickPlateSearch = () => {
     if (!quickSearchPlate.trim()) return;
@@ -52,7 +55,6 @@ export const App: React.FC = () => {
   };
 
   const handleRecordCreated = (record: ServiceRecord) => {
-    // Navigate to services to see new record
     setSelectedRecordForDetail(record);
     setCurrentTab('services');
   };
@@ -73,6 +75,7 @@ export const App: React.FC = () => {
         onQuickSearch={handleQuickPlateSearch}
         reminderCount={reminders.length}
         activeServiceCount={activeServices.length}
+        lowStockCount={lowStock.length}
       />
 
       {/* Main Content Area */}
@@ -108,6 +111,14 @@ export const App: React.FC = () => {
           />
         )}
 
+        {currentTab === 'inventory' && (
+          <InventoryView />
+        )}
+
+        {currentTab === 'cashflow' && (
+          <CashFlowView />
+        )}
+
         {currentTab === 'reminders' && (
           <RemindersView />
         )}
@@ -127,4 +138,3 @@ export const App: React.FC = () => {
     </div>
   );
 };
-
