@@ -352,3 +352,4 @@ export const CashFlowView: React.FC = () => {
     </div>
   );
 };
+

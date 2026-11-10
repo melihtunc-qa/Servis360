@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Package, 
+  Package,
   Search, 
   Plus, 
   AlertTriangle, 
@@ -419,3 +419,4 @@ export const InventoryView: React.FC = () => {
     </div>
   );
 };
+

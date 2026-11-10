@@ -1,4 +1,4 @@
-import { 
+import type { 
   Customer, 
   Vehicle, 
   ServiceRecord, 
@@ -9,7 +9,7 @@ import {
   MaintenancePackage,
   Technician,
   CashTransaction 
-} from '../types';
+} from '../types/index.ts';
 
 const STORAGE_KEYS = {
   CUSTOMERS: 'servis360_customers',
